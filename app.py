@@ -4,6 +4,7 @@ from io import BytesIO
 import midi_util
 from midi_util import VocabConfig
 import tempfile
+from glob import glob
 def gen(piano_only, length):
     midi = ''
     for item in musicgen(piano_only=piano_only, length=length):
@@ -24,4 +25,7 @@ with gr.Blocks() as demo:
     txtout = gr.Textbox(interactive=False, label="MIDI Tokens")
     fileout = gr.File(interactive=False, label="MIDI File", type="binary")
     synth.click(gen, inputs=[piano_only, length], outputs=[txtout, fileout])
+    with gr.Accordion("Samples", open=False):
+        for i, audpath in enumerate(glob("*.wav"))
+            gr.Audio(interactive=False, value=audpath, label=f'Sample {i + 1}')
 demo.queue().launch()
