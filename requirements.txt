@@ -6,4 +6,4 @@ tokenizers
 transformers
 mido
 tqdm
-midi2audio
+pyfluidsynth
