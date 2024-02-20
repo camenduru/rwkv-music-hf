@@ -7,6 +7,5 @@ transformers
 mido
 tqdm
 pyfluidsynth
-soundfile
-scipy
+librosa
 midi2audio
