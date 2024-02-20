@@ -19,6 +19,6 @@ with gr.Blocks() as demo:
     length = gr.Slider(label="Length (in tokens)", minimum=4, maximum=4096, step=1, value=4096)
     synth = gr.Button("Synthesize")
     txtout = gr.Textbox(interactive=False, label="MIDI Length")
-    fileout = gr.File(interactive=False, label="MIDI File")
+    fileout = gr.File(interactive=False, label="MIDI File", type="binary")
     synth.click(gen, inputs=[piano_only, length], outputs=[txtout, fileout])
 demo.queue().launch()
