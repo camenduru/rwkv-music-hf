@@ -14,8 +14,8 @@ def gen(piano_only, length):
     text = midi.strip()
     mid = midi_util.convert_str_to_midi(cfg, text)
     with tempfile.NamedTemporaryFile(suffix='.midi', delete=False) as tmp:
-        mid.save(tmp)
-        yield midi, tmp
+        mid.save(tmp.name)
+        yield midi, tmp.name
 with gr.Blocks() as demo:
     piano_only = gr.Checkbox(label="Piano Only")
     length = gr.Slider(label="Length (in tokens)", minimum=4, maximum=4096, step=1, value=4096)
