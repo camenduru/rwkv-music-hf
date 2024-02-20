@@ -30,8 +30,4 @@ with gr.Blocks() as demo:
     fileout = gr.File(interactive=False, label="MIDI File", type="binary")
     audioout = gr.Audio(interactive=False, label="Audio")
     synth.click(gen, inputs=[piano_only, length], outputs=[txtout, fileout, audioout])
-    with gr.Accordion("Samples", open=False):
-        for i, audpath in enumerate(glob("*.wav")):
-            y, sr = librosa.load(audpath)
-            gr.Audio(interactive=False, value=(sr,y,), label=f'Sample {i + 1}')
 demo.queue(api_open=False).launch(show_api=False)
