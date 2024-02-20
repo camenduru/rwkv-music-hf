@@ -1,7 +1,8 @@
 import gradio as gr
 from musiclib import musicgen
 def gen(piano_only):
-    return musicgen(piano_only=piano_only)
+    for item in musicgen(piano_only=piano_only):
+        yield item
 with gr.Blocks() as demo:
     piano_only = gr.Checkbox(label="Piano Only")
     synth = gr.Button("Synthesize")
