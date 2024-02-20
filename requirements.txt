@@ -2,3 +2,7 @@ rwkv
 numpy
 cached-path
 torch
+tokenizers
+transformers
+mido
+tqdm
