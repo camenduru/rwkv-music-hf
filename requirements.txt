@@ -8,3 +8,4 @@ mido
 tqdm
 pyfluidsynth
 soundfile
+midi2audio
