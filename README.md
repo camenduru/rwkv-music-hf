@@ -1,12 +1,12 @@
 ---
-title: Rwkv Music
-emoji: 🔥
-colorFrom: blue
+title: RWKV Music
+emoji: 🎵
+colorFrom: pink
 colorTo: indigo
 sdk: gradio
 sdk_version: 4.19.1
 app_file: app.py
-pinned: false
+pinned: true
 ---
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
