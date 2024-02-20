@@ -14,7 +14,7 @@ def gen(piano_only):
     cfg = VocabConfig.from_json('./vocab_config.json')
     text = midi.strip()
     mid = midi_util.convert_str_to_midi(cfg, text)
-    mid.save(bio)
+    mid.save(file=bio)
     audio = BytesIO()
     fs.midi_to_audio(bio.getvalue(), audio)
     return midi, bio.getvalue(), audio.getvalue()
