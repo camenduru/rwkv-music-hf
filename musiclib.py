@@ -67,4 +67,3 @@ def musicgen(ccc='<pad>', piano_only=False):
 
     output += (' <end>')
     yield output
-    return output
