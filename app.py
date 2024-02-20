@@ -5,6 +5,6 @@ def gen(piano_only):
 with gr.Blocks() as demo:
     piano_only = gr.Checkbox(label="Piano Only")
     synth = gr.Button("Synthesize")
-    fileout = gr.File(interactive=False)
+    fileout = gr.Textbox(interactive=False)
     synth.click(gen, inputs=[piano_only], outputs=[fileout])
 demo.queue().launch()
