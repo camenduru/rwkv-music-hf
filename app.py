@@ -33,5 +33,5 @@ with gr.Blocks() as demo:
     with gr.Accordion("Samples", open=False):
         for i, audpath in enumerate(glob("*.wav")):
             y, sr = librosa.load(audpath)
-            gr.Audio(interactive=False, value=(y,sr,), label=f'Sample {i + 1}')
+            gr.Audio(interactive=False, value=(sr,y,), label=f'Sample {i + 1}')
 demo.queue(api_open=False).launch(show_api=False)
