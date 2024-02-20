@@ -13,7 +13,7 @@ def gen(piano_only, length):
     text = midi.strip()
     mid = midi_util.convert_str_to_midi(cfg, text)
     mid.save(file=bio)
-    return midi, bio.getvalue()
+    yield midi, bio.getvalue()
 with gr.Blocks() as demo:
     piano_only = gr.Checkbox(label="Piano Only")
     length = gr.Slider(label="Length (in tokens)", minimum=4, maximum=4096, step=1, value=4096)
