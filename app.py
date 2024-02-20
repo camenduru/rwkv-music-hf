@@ -28,4 +28,4 @@ with gr.Blocks() as demo:
     with gr.Accordion("Samples", open=False):
         for i, audpath in enumerate(glob("*.wav")):
             gr.Audio(interactive=False, value=audpath, label=f'Sample {i + 1}')
-demo.queue().launch()
+demo.queue(api_open=False).launch(api_enabled=False)
