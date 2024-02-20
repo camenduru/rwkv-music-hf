@@ -1,3 +1,4 @@
 rwkv
 numpy
 cached-path
+torch
