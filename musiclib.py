@@ -1,5 +1,5 @@
 # apache 2.0 license, modified by mrfakename, from https://github.com/BlinkDL/ChatRWKV/tree/main/music
-
+import torch
 import os, sys
 import numpy as np
 from cached_path import cached_path
@@ -16,8 +16,9 @@ MODEL_FILE = str(cached_path('hf://BlinkDL/rwkv-4-music/RWKV-4-MIDI-120M-v1-2023
 
 ABC_MODE = ('-ABC-' in MODEL_FILE)
 MIDI_MODE = ('-MIDI-' in MODEL_FILE)
-
-model = RWKV(model=MODEL_FILE, strategy='mps fp32')
+device = 'cpu'
+if torch.cuda.is_available(): device = 'cuda'
+model = RWKV(model=MODEL_FILE, strategy=f'{device} fp32')
 pipeline = PIPELINE(model, "tokenizer-midi.json")
 
 tokenizer = pipeline
