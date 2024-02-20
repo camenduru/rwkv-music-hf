@@ -1,5 +1,7 @@
 import gradio as gr
 from musiclib import musicgen
+import spaces
+@spaces.GPU(enable_queue=True)
 def gen(piano_only):
     for item in musicgen(piano_only=piano_only):
         yield item
