@@ -34,7 +34,7 @@ def musicgen(ccc='<pad>', piano_only=False):
     output = ''
         
     output += (ccc_output)
-
+    yield output
     occurrence = {}
     state = None
     for i in range(4096): # only trained with ctx4096 (will be longer soon)
@@ -62,7 +62,9 @@ def musicgen(ccc='<pad>', piano_only=False):
             else:
                 occurrence[token] = 0.3 + (occurrence[token] if token in occurrence else 0)
         
-        output += (TOKEN_SEP + tokenizer.decode([token]))
+        output += TOKEN_SEP + tokenizer.decode([token]))
+        yield output
 
     output += (' <end>')
+    yield output
     return output
