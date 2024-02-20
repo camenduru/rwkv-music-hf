@@ -5,9 +5,9 @@ import midi_util
 from midi_util import VocabConfig
 from midi2audio import FluidSynth
 fs = FluidSynth()
-def gen(piano_only):
+def gen(piano_only, length):
     midi = ''
-    for item in musicgen(piano_only=piano_only):
+    for item in musicgen(piano_only=piano_only, length=length):
         midi = item
         yield item, None, None
     bio = BytesIO()
@@ -20,9 +20,10 @@ def gen(piano_only):
     return midi, bio.getvalue(), audio.getvalue()
 with gr.Blocks() as demo:
     piano_only = gr.Checkbox(label="Piano Only")
+    length = gr.Slider(label="Length", minimum=4, maximum=4096, step=1)
     synth = gr.Button("Synthesize")
     txtout = gr.Textbox(interactive=False)
     fileout = gr.File(interactive=False)
     audioout = gr.Audio(interactive=False)
-    synth.click(gen, inputs=[piano_only], outputs=[txtout, fileout, audioout])
+    synth.click(gen, inputs=[piano_only, length], outputs=[txtout, fileout, audioout])
 demo.queue().launch()
