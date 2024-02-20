@@ -5,7 +5,7 @@ import midi_util
 from midi_util import VocabConfig
 import tempfile
 from glob import glob
-import soundfile as sf
+import librosa
 from midi2audio import FluidSynth
 fs = FluidSynth()
 def gen(piano_only, length):
@@ -32,6 +32,6 @@ with gr.Blocks() as demo:
     synth.click(gen, inputs=[piano_only, length], outputs=[txtout, fileout, audioout])
     with gr.Accordion("Samples", open=False):
         for i, audpath in enumerate(glob("*.wav")):
-            sr, dat = sf.read(audpath)
-            gr.Audio(interactive=False, value=(sr,dat,), label=f'Sample {i + 1}')
+            y, sr = librosa.load(filename)
+            gr.Audio(interactive=False, value=(y,sr,), label=f'Sample {i + 1}')
 demo.queue(api_open=False).launch(show_api=False)
