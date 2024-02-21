@@ -28,11 +28,15 @@ def gen(piano_only, piano_seed, length):
         mid.save(tmp.name)
         fs.midi_to_audio(tmp.name, aud.name)
         yield midi, tmp.name, aud.name
+def enable_longer(en):
+    return gr.update(maximum=(8192 if en else 4096))
 with gr.Blocks() as demo:
     gr.Markdown("# RWKV 4 Music (MIDI)\n\nThis demo uses the RWKV 4 MIDI model available [here](https://huggingface.co/BlinkDL/rwkv-4-music/blob/main/RWKV-4-MIDI-560M-v1-20230717-ctx4096.pth). Details may be found [here](https://huggingface.co/BlinkDL/rwkv-4-music). The music generation code may be found [here](https://github.com/BlinkDL/ChatRWKV/tree/main/music). The MIDI Tokenizer may be found [here](https://github.com/briansemrau/MIDI-LLM-tokenizer).\n\nNot sure how to play MIDI files? I recommend using the open source [VLC Media Player](https://www.videolan.org/vlc/) with can play MIDI files using FluidSynth.\n\nYou are responsible for your usage.")
     piano_only = gr.Checkbox(label="Piano Only")
     piano_seed = gr.Checkbox(label="Use Piano Melody Seed")
     length = gr.Slider(label="Max Length (in tokens)", minimum=4, maximum=4096, step=1, value=512, info="The audio may still be shorter than this")
+    longer = gr.Checkbox(label="Enable longer generation", info="This will increase the maximum value of the maximum length slider to 8192 even though the model context length is not this long. Results may be substandard and you may get errors.")
+    longer.input(enable_longer, inputs=longer, outputs=length)
     synth = gr.Button("Synthesize")
     txtout = gr.Textbox(interactive=False, label="MIDI Tokens")
     fileout = gr.File(interactive=False, label="MIDI File", type="binary")
