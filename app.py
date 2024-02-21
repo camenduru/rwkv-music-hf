@@ -37,4 +37,4 @@ with gr.Blocks() as demo:
     fileout = gr.File(interactive=False, label="MIDI File", type="binary")
     audioout = gr.Audio(interactive=False, label="Audio")
     synth.click(gen, inputs=[piano_only, piano_seed, length], outputs=[txtout, fileout, audioout])
-demo.queue(api_open=False).launch(show_api=False)
+demo.queue(api_open=False, default_concurrency_limit=5).launch(show_api=False)
