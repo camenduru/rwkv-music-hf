@@ -1,4 +1,5 @@
 import gradio as gr
+import numpy as np
 from musiclib import musicgen
 from io import BytesIO
 import midi_util
