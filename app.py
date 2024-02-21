@@ -19,6 +19,7 @@ def trim_silence(filename, threshold=0.1, duration=0.5):
         if end - start > duration_samples:
             trimmed_audio.extend(y[start:end])
     trimmed_audio = np.array(trimmed_audio)
+    librosa.output.write_wav(filename, y, sr=sr)
     return trimmed_audio, sr
 def gen(piano_only, length):
     midi = ''
