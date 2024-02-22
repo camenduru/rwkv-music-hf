@@ -28,8 +28,8 @@ def gen(piano_only, piano_seed, length):
         mid.save(tmp.name)
         fs.midi_to_audio(tmp.name, aud.name)
         yield midi, tmp.name, aud.name
-def enable_longer(en):
-    return gr.update(maximum=(8192 if en else 4096))
+def enable_longer(en, len):
+    return gr.update(maximum=(8192 if en else 4096), value=(4096 if (len > 4096 and en) else len))
 with gr.Blocks() as demo:
     gr.Markdown("# RWKV 4 Music (MIDI)\n\nThis demo uses the RWKV 4 MIDI model available [here](https://huggingface.co/BlinkDL/rwkv-4-music/blob/main/RWKV-4-MIDI-560M-v1-20230717-ctx4096.pth). Details may be found [here](https://huggingface.co/BlinkDL/rwkv-4-music). The music generation code may be found [here](https://github.com/BlinkDL/ChatRWKV/tree/main/music). The MIDI Tokenizer may be found [here](https://github.com/briansemrau/MIDI-LLM-tokenizer).\n\nNot sure how to play MIDI files? I recommend using the open source [VLC Media Player](https://www.videolan.org/vlc/) with can play MIDI files using FluidSynth.\n\nYou are responsible for your usage.")
     piano_only = gr.Checkbox(label="Piano Only")
