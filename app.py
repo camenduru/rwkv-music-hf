@@ -36,7 +36,7 @@ with gr.Blocks() as demo:
     piano_seed = gr.Checkbox(label="Use Piano Melody Seed")
     length = gr.Slider(label="Max Length (in tokens)", minimum=4, maximum=4096, step=1, value=512, info="The audio may still be shorter than this")
     longer = gr.Checkbox(label="Enable longer generation", info="This will increase the maximum value of the maximum length slider to 8192 even though the model context length is not this long. Results may be substandard and you may get errors.")
-    longer.input(enable_longer, inputs=longer, outputs=length)
+    longer.input(enable_longer, inputs=[longer, length], outputs=length)
     synth = gr.Button("Synthesize")
     txtout = gr.Textbox(interactive=False, label="MIDI Tokens")
     fileout = gr.File(interactive=False, label="MIDI File", type="binary")
