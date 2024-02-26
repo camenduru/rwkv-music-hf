@@ -27,7 +27,7 @@ def gen(piano_only, piano_seed, length):
     with tempfile.NamedTemporaryFile(suffix='.midi', delete=False) as tmp, tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as aud:
         mid.save(tmp.name)
         fs.midi_to_audio(tmp.name, aud.name)
-        yield midi, tmp.name, aud.name, gr.update(visible=True)
+        yield midi, tmp.name, aud.name, gr.update(visible=True, value="Continue ➡️")
 @spaces.GPU(enable_queue=True)
 def continueit(piano_only, piano_seed, length, txtout):
     midi = ''
