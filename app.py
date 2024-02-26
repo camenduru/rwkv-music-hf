@@ -19,7 +19,8 @@ def gen(piano_only, piano_seed, length):
         ccc = '<pad>'
     for item in musicgen(ccc, piano_only=piano_only, length=length):
         midi = item
-        yield item, None, None, None
+        # yield item, None, None, None
+        yield item, None, None
     bio = BytesIO()
     cfg = VocabConfig.from_json('./vocab_config.json')
     text = midi.strip()
@@ -27,11 +28,12 @@ def gen(piano_only, piano_seed, length):
     with tempfile.NamedTemporaryFile(suffix='.midi', delete=False) as tmp, tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as aud:
         mid.save(tmp.name)
         fs.midi_to_audio(tmp.name, aud.name)
-        yield midi, tmp.name, aud.name, gr.update(visible=True, value="Continue ➡️")
+        # yield midi, tmp.name, aud.name, gr.update(visible=True, value="Continue ➡️")
+        yield midi, tmp.name, aud.name
 @spaces.GPU(enable_queue=True)
 def continueit(piano_only, piano_seed, length, txtout):
     midi = ''
-    for item in musicgen(txtout.strip().strip('<end>').strip(), piano_only=piano_only, length=length):
+    for item in musicgen(txtout.strip().strip('<end>').strip() + ' ', piano_only=piano_only, length=length):
         midi = item
         yield item, None, None
     bio = BytesIO()
@@ -56,6 +58,6 @@ with gr.Blocks() as demo:
     fileout = gr.File(interactive=False, label="MIDI File", type="binary")
     audioout = gr.Audio(interactive=False, label="Audio")
     continuebtn = gr.Button("Continue ➡️", visible=False)
-    synth.click(gen, inputs=[piano_only, piano_seed, length], outputs=[txtout, fileout, audioout, continuebtn])
-    continuebtn.click(gen, inputs=[piano_only, piano_seed, length, txtout], outputs=[txtout, fileout, audioout])
+    synth.click(gen, inputs=[piano_only, piano_seed, length], outputs=[txtout, fileout, audioout])
+    # continuebtn.click(gen, inputs=[piano_only, piano_seed, length, txtout], outputs=[txtout, fileout, audioout])
 demo.queue(api_open=False, default_concurrency_limit=5).launch(show_api=False)
